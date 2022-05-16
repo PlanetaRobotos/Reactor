@@ -1,0 +1,3 @@
+[submodule "Assets/submodules/CommonScripts"]
+	path = Assets/submodules/CommonScripts
+	url = https://github.com/PlanetaRobotos/CommonScripts.git

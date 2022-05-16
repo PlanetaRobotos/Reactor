@@ -117,18 +117,28 @@ namespace Assets._Project.Scripts.Utilities
                 currentValue += Time.fixedDeltaTime;
         }
 
-        public static () GetScreenValues()
+        public static ScreenValues GetScreenValues()
         {
             Camera camera = Camera.main;
             if (camera is { })
             {
                 float height = camera.orthographicSize * 2.0f;
                 float width = height * camera.aspect;
-            
-                return new Vector2(height, width);
+
+                return ScreenValues.CreateInstance();
             }
 
             throw new Exception("Camera isn't find");
+        }
+    }
+    
+    public struct ScreenValues
+    {
+        private (ScreenValue, float) _width;
+        private (ScreenValue, float) _height;
+        public static ScreenValues CreateInstance((ScreenValue, float) width, (ScreenValue, float))
+        {
+            return new ScreenValues();
         }
     }
 

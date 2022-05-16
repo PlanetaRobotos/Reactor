@@ -10,7 +10,7 @@ namespace _Project.Scripts.CommonStuff.Mechanics
 
         private void Scale()
         {
-            Vector2 screenValues = CommonTools.GetScreenValues();
+            var screenValues = CommonTools.GetScreenValues();
 
             switch (_scaleType)
             {
