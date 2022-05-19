@@ -25,7 +25,7 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
         {
             if (other.gameObject.CompareTag(Tags.Ball))
             {
-                _ball.IncreaseStateAction();
+                _ball.IncreaseState();
             }
         }
 

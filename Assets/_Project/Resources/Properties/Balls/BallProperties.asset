@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219f3d4f77844024972e34699acbb96b, type: 3}
   m_Name: BallProperties
   m_EditorClassIdentifier: 
-  _startForce: 500
+  _startForce: 200
   _ballStates:
   - {fileID: 11400000, guid: 43c507b65b5b2554b9f554582c2782ee, type: 2}
+  - {fileID: 11400000, guid: 184650e52ac1bd84f8145ca8733ea328, type: 2}
+  - {fileID: 11400000, guid: 728a5a6d988404d42b9754d1a40e7f73, type: 2}
+  - {fileID: 11400000, guid: 49dde797f0876974b8145e6e97230caa, type: 2}

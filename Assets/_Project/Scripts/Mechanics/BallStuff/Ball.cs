@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using _Project.Scripts.Architecture.Services.UIStuff;
 using _Project.Scripts.Settings;
 using UnityEngine;
 
@@ -7,18 +9,22 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
     public class Ball : MonoBehaviour
     {
         [SerializeField] private BallProperties _ballProperties;
-        [SerializeField, ReadOnly] private int _currentState;
+        [SerializeField] private string _key;
 
         private BallMovement _ballMovement;
         private BallCollision _ballCollision;
 
         public Action IncreaseStateAction = () => { };
         private BallSkin _ballSkin;
+        private IUIService _uiService;
+
+        public void Construct(IUIService uiService)
+        {
+            _uiService = uiService;
+        }
 
         public void Initialize()
         {
-            Debug.Log($"name: {gameObject.name}, code: {gameObject.GetHashCode()}");
-
             _ballMovement = GetComponent<BallMovement>();
             _ballCollision = GetComponent<BallCollision>();
             _ballSkin = GetComponent<BallSkin>();
@@ -31,29 +37,21 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
 
             _ballSkin.Construct(this);
             _ballSkin.Initialize();
-
-            IncreaseStateAction += OnStateIncreased;
         }
 
-        private void OnStateIncreased()
+        public void IncreaseState()
         {
-            CurrentState++;
-        }
-
-        public int CurrentState
-        {
-            get => GetCurrentState();
-            private set
+            if (GetCurrentState() >= _ballProperties.BallStates.Length - 1)
             {
-                _currentState = GetCurrentState();
-                // Debug.Log("GetCurrentState = " + GetCurrentState());
-                SetCurrentState(value);
+                _uiService.TriggerEvent(UIEventType.GameFinishedAction, new Hashtable {{UIEventType.GameFinishedAction, true}});
+                
+                return;
             }
+            SetCurrentState(GetCurrentState() + 1);
+            IncreaseStateAction();
         }
 
-        public BallProperties Properties => _ballProperties;
-        
-        public BallState CurrentBallState => Properties.BallStates[CurrentState];
+        public BallState CurrentBallState => _ballProperties.BallStates[GetCurrentState()];
 
         private void SetCurrentState(int value)
         {
@@ -61,11 +59,8 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
             PlayerPrefs.SetInt(key, value);
         }
 
-        private int GetCurrentState()
-        {
-            return PlayerPrefs.GetInt(GetKey);
-        }
-        
-        private string GetKey => gameObject.GetHashCode().ToString();
+        private int GetCurrentState() => PlayerPrefs.GetInt(GetKey);
+
+        private string GetKey => _key;
     }
 }

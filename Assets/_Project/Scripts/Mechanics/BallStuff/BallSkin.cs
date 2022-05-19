@@ -18,12 +18,13 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
 
         public void Initialize()
         {
-            SetSkin(_ball.CurrentBallState);
-            _ball.IncreaseStateAction += () => SetSkin(_ball.CurrentBallState);
+            SetSkin();
+            _ball.IncreaseStateAction += SetSkin;
         }
 
-        private void SetSkin(BallState ballState)
+        private void SetSkin()
         {
+            BallState ballState = _ball.CurrentBallState;
             _ballRenderer.material = ballState.BallMaterial;
             _bgGlowRenderer.material = ballState.BackwardGlowMaterial;
             _fgGlowRenderer.material = ballState.ForwardGlowMaterial;

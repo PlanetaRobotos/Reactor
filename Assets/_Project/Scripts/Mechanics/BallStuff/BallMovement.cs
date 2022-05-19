@@ -21,7 +21,7 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
         {
             _rb = GetComponent<Rigidbody2D>();
 
-            _rb.AddForce(_randomService.GetRandomDirectionXY * _ball.Properties.StartForce, ForceMode2D.Impulse);
+            _rb.AddForce(_randomService.GetRandomDirectionXY * _ball.CurrentBallState.SpeedRange.MinValue, ForceMode2D.Impulse);
         }
 
         public void SetVelocity()
@@ -42,6 +42,6 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
             // Debug.Log($"speed = {_rb.velocity.magnitude}, name = {gameObject.name}");
         }
         
-        private MinMaxFloat SpeedRange => _ball.Properties.BallStates[_ball.CurrentState].SpeedRange;
+        private MinMaxFloat SpeedRange => _ball.CurrentBallState.SpeedRange;
     }
 }
