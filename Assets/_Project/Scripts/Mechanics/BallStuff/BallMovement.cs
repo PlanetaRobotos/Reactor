@@ -1,6 +1,5 @@
-using System;
 using _Project.Scripts.Services;
-using _Project.Scripts.Settings;
+using _Project.Scripts.SettingsStuff;
 using UnityEngine;
 using Zenject;
 
@@ -9,20 +8,40 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
     public class BallMovement : MonoBehaviour
     {
         private Rigidbody2D _rb;
-        private BallProperties _ballProperties;
 
         [Inject] private RandomService _randomService;
+        private Ball _ball;
 
-        public void Initialize(BallProperties ballProperties)
+        public void Construct(Ball ball)
         {
-            _ballProperties = ballProperties;
+            _ball = ball;
+        }
+
+        public void Initialize()
+        {
             _rb = GetComponent<Rigidbody2D>();
 
-            _rb.AddForce(_randomService.GetRandomDirectionXY * _ballProperties.StartForce, ForceMode2D.Impulse);
+            _rb.AddForce(_randomService.GetRandomDirectionXY * _ball.Properties.StartForce, ForceMode2D.Impulse);
+        }
+
+        public void SetVelocity()
+        {
+            Vector3 velocity = _rb.velocity;
+            float speed = velocity.magnitude;
+            velocity.Normalize();
+            
+            if (speed < SpeedRange.MinValue || speed > SpeedRange.MinValue)
+            {
+                speed = Mathf.Clamp(speed, SpeedRange.MinValue, SpeedRange.MinValue);
+                _rb.velocity = velocity * speed;
+            }
         }
 
         private void FixedUpdate()
         {
+            // Debug.Log($"speed = {_rb.velocity.magnitude}, name = {gameObject.name}");
         }
+        
+        private MinMaxFloat SpeedRange => _ball.Properties.BallStates[_ball.CurrentState].SpeedRange;
     }
 }

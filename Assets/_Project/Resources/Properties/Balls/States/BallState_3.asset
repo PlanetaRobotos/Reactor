@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecda46789794b3b81476707f22ef71f, type: 3}
+  m_Name: BallState_3
+  m_EditorClassIdentifier: 
+  _ballMaterial: {fileID: 2100000, guid: 47004b84c39171c4d88a596eb2658db2, type: 2}
+  _forwardGlowMaterial: {fileID: 2100000, guid: c9895598ed27539478a062ec24c1cd1c, type: 2}
+  _backwardGlowMaterial: {fileID: 2100000, guid: 9694418638f023744b0b4c2b0e017fd1, type: 2}
+  _speedRange:
+    MinValue: 550
+    MaxValue: 650
+  _sizeDelta: 64
