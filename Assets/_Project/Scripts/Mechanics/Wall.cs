@@ -1,4 +1,4 @@
-using System;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace _Project.Scripts.CommonStuff.Mechanics
@@ -6,6 +6,9 @@ namespace _Project.Scripts.CommonStuff.Mechanics
     public class Wall : MonoBehaviour
     {
         [SerializeField] private SideType _sideType;
+        
+        [SerializeField] private bool _useOffset;
+        [SerializeField, ShowIf("_useOffset")] private Vector2 _offset;
 
         private Transform _cachedTransform;
         private ScreenTools.ScreenValues _screenValues;
@@ -27,7 +30,8 @@ namespace _Project.Scripts.CommonStuff.Mechanics
 
         private void Place()
         {
-            _cachedTransform.position = _center;
+            _cachedTransform.position = _center + (Vector3)_offset;
+            
             switch (_sideType)
             {
                 case SideType.Top:

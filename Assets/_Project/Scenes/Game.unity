@@ -219,6 +219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sideType: 3
+  _useOffset: 0
+  _offset: {x: 0, y: 0}
 --- !u!1 &234912941
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +591,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sideType: 1
+  _useOffset: 0
+  _offset: {x: 0, y: 0}
 --- !u!1 &568138013
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70309946dce14e199b7791ae8b79421a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameCanvas: {fileID: 234912942}
+  _gameCanvas: {fileID: 0}
   _gameField: {fileID: 1453765579}
   _walls: {fileID: 1063441544}
   _balls: {fileID: 1605291391}
@@ -1105,6 +1109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sideType: 0
+  _useOffset: 1
+  _offset: {x: 0, y: -50}
 --- !u!1 &1605291390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,6 +1315,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sideType: 2
+  _useOffset: 0
+  _offset: {x: 0, y: 0}
 --- !u!4 &1865606244442727621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8883300231785196382, guid: 54d77c59c3e8ce04b8ade90a07f1f01e, type: 3}
