@@ -6,10 +6,15 @@ using UnityEngine;
 
 namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
 {
-    public class Ball : MonoBehaviour
+    public interface ISavable
+    {
+        void SetKey(string key);
+        string GetKey();
+    }
+
+    public class Ball : MonoBehaviour, ISavable
     {
         [SerializeField] private BallProperties _ballProperties;
-        [SerializeField] private string _key;
 
         private BallMovement _ballMovement;
         private BallCollision _ballCollision;
@@ -18,19 +23,21 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
         private BallSkin _ballSkin;
         private IUIService _uiService;
 
+        private string _key;
+
         public void Construct(IUIService uiService)
         {
             _uiService = uiService;
         }
 
-        public void Initialize()
+        public void Initialize(Vector2 startPoint)
         {
             _ballMovement = GetComponent<BallMovement>();
             _ballCollision = GetComponent<BallCollision>();
             _ballSkin = GetComponent<BallSkin>();
 
             _ballMovement.Construct(this);
-            _ballMovement.Initialize();
+            _ballMovement.Initialize(startPoint);
 
             _ballCollision.Construct(this, _ballMovement);
             _ballCollision.Initialize();
@@ -39,14 +46,26 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
             _ballSkin.Initialize();
         }
 
+        public void SetKey(string key)
+        {
+            _key = key;
+        }
+
+        public string GetKey()
+        {
+            return _key;
+        }
+
         public void IncreaseState()
         {
             if (GetCurrentState() >= _ballProperties.BallStates.Length - 1)
             {
-                _uiService.TriggerEvent(UIEventType.GameFinishedAction, new Hashtable {{UIEventType.GameFinishedAction, true}});
-                
+                _uiService.TriggerEvent(UIEventType.GameFinishedAction,
+                    new Hashtable { { UIEventType.GameFinishedAction, true } });
+
                 return;
             }
+
             SetCurrentState(GetCurrentState() + 1);
             IncreaseStateAction();
         }
@@ -55,12 +74,10 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
 
         private void SetCurrentState(int value)
         {
-            string key = GetKey;
+            string key = GetKey();
             PlayerPrefs.SetInt(key, value);
         }
 
-        private int GetCurrentState() => PlayerPrefs.GetInt(GetKey);
-
-        private string GetKey => _key;
+        private int GetCurrentState() => PlayerPrefs.GetInt(GetKey());
     }
 }

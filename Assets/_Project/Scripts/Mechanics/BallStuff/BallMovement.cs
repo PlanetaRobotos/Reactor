@@ -1,5 +1,7 @@
+using System;
 using _Project.Scripts.Services;
 using _Project.Scripts.SettingsStuff;
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -17,11 +19,18 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
             _ball = ball;
         }
 
-        public void Initialize()
+        public void Initialize(Vector2 startPoint)
         {
             _rb = GetComponent<Rigidbody2D>();
 
-            _rb.AddForce(_randomService.GetRandomDirectionXY * _ball.CurrentBallState.SpeedRange.MinValue, ForceMode2D.Impulse);
+            transform.position = startPoint;
+            // DOVirtual.DelayedCall(0.1f, AddRandomForce);
+        }
+
+        private void AddRandomForce()
+        {
+            Vector2 randomDirection = _randomService.GetRandomDirectionXY * _ball.CurrentBallState.SpeedRange.MinValue;
+            _rb.AddForce(randomDirection, ForceMode2D.Impulse);
         }
 
         public void SetVelocity()
@@ -37,11 +46,14 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
             }
         }
 
-        private void FixedUpdate()
+        /*private void Update()
         {
-            // Debug.Log($"speed = {_rb.velocity.magnitude}, name = {gameObject.name}");
-        }
-        
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                AddRandomForce();
+            }
+        }*/
+
         private MinMaxFloat SpeedRange => _ball.CurrentBallState.SpeedRange;
     }
 }
