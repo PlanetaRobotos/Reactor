@@ -23,7 +23,7 @@ namespace _Project.Scripts.CommonStuff.Mechanics
             _depth = depth;
 
             _cachedTransform = transform;
-            _screenValues = ScreenTools.GetScreenValues();
+            _screenValues = ScreenTools.GetScreenValuesAspect();
 
             Place();
         }
