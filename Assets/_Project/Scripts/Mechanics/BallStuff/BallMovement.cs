@@ -1,7 +1,7 @@
 using System;
-using _Project.Scripts.Services;
-using _Project.Scripts.SettingsStuff;
 using DG.Tweening;
+using submodules.CommonScripts.CommonScripts.Architecture.Services;
+using submodules.CommonScripts.CommonScripts.Utilities;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +11,6 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
     {
         private Rigidbody2D _rb;
 
-        [Inject] private RandomService _randomService;
         private Ball _ball;
 
         public void Construct(Ball ball)
@@ -29,7 +28,7 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
 
         private void AddRandomForce()
         {
-            Vector2 randomDirection = _randomService.GetRandomDirectionXY * _ball.CurrentBallState.SpeedRange.MinValue;
+            Vector2 randomDirection = RandomUtils.GetRandomDirectionXY * _ball.CurrentBallState.SpeedRange.MinValue;
             _rb.AddForce(randomDirection, ForceMode2D.Impulse);
         }
 

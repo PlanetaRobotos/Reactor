@@ -1,5 +1,5 @@
-using _Project.Scripts.Architecture.Behaviours;
-using Assets._Project.Scripts.Utilities.Constants;
+using submodules.CommonScripts.CommonScripts.BehaviourStuff.Collision._2D;
+using submodules.CommonScripts.CommonScripts.Utilities.Constants;
 using UnityEngine;
 
 namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cf8df0c0efba54899f0d997755939a, type: 3}
   m_Name: WorldSettings
   m_EditorClassIdentifier: 
-  _ballsAmount: 2
+  _ballsAmount: 4
+  _minStartDistanceBetweenBalls: 200

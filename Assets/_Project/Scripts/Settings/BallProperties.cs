@@ -1,4 +1,3 @@
-using _Project.Scripts.SettingsStuff;
 using UnityEngine;
 
 namespace _Project.Scripts.Settings

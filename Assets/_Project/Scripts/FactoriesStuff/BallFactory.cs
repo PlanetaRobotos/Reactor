@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using _Project.Scripts.Architecture.Services.Pool;
-using _Project.Scripts.Services;
+using submodules.CommonScripts.CommonScripts.Architecture.Services.AssetsStuff;
+using submodules.CommonScripts.CommonScripts.Architecture.Services.Pool;
 using UnityEngine;
 
 public interface IBallFactory

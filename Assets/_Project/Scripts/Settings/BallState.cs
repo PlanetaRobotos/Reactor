@@ -1,4 +1,4 @@
-using _Project.Scripts.SettingsStuff;
+using submodules.CommonScripts.CommonScripts.Utilities;
 using UnityEngine;
 
 namespace _Project.Scripts.Settings

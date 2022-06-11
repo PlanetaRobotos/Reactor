@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-using _Project.Scripts.Architecture.Services.UIStuff;
-using _Project.Scripts.Mechanics;
-using _Project.Scripts.Services;
-using _Project.Scripts.SettingsStuff;
+using _Project.Scripts.Settings;
+using submodules.CommonScripts.CommonScripts.Architecture.Services;
+using submodules.CommonScripts.CommonScripts.Architecture.Services.DataStuff;
+using submodules.CommonScripts.CommonScripts.Architecture.Services.UIStuff;
+using submodules.CommonScripts.CommonScripts.Utilities.Tools;
 using UnityEngine;
 using Zenject;
 
@@ -13,16 +14,14 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
         private IDataService _dataService;
         private IUIService _uiService;
         private IBallFactory _ballFactory;
-        
-        private readonly Dictionary<string, GameObject> _balls = new();
-        private RandomService _randomService;
+
+        private readonly List<BallData> _balls = new();
         private int _ballsAmount;
-        private Vector2 _nextPoint;
-        
+        private Vector2[] _startPoints;
+
         [Inject]
-        private void Construct(IUIService uiService, IDataService dataService, IBallFactory ballFactory, RandomService randomService)
+        private void Construct(IUIService uiService, IDataService dataService, IBallFactory ballFactory)
         {
-            _randomService = randomService;
             _ballFactory = ballFactory;
             _uiService = uiService;
             _dataService = dataService;
@@ -32,18 +31,23 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
         {
             _ballsAmount = _dataService.WorldSettings.BallsAmount;
 
-            _nextPoint = _randomService.GetRandomScreenPoint(150);
+            _startPoints =  DistanceTools.GetPoints(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _ballsAmount);
 
             for (int i = 0; i < _ballsAmount; i++)
             {
                 string key = $"ball_{i.ToString()}";
-                _balls.Add(key, null);
-                
-                AddBall(key);
+
+                var ballData = AddBall(key, i);
+                _balls.Add(ballData);
             }
+
+            Debug.Log($"dist {DistanceTools.GetDistance(_startPoints[0], _startPoints[1])}");
+            Debug.Log(
+                $"is above {DistanceTools.IsAbove(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _startPoints[0], _startPoints[1])}");
         }
-        
-        private void AddBall(string saveKey)
+
+
+        private BallData AddBall(string saveKey, int index)
         {
             var ball = _ballFactory.Create(BallType.Simple.ToString()).GetComponent<Ball>();
             ball.Construct(_uiService);
@@ -51,20 +55,28 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
             ball.gameObject.SetActive(true);
             ball.transform.SetParent(transform);
 
-            var point = GetRandomScreenPoint;
-            for (int i = 0; i < _ballsAmount; i++)
-            {
-                DistanceTools.CheckDistance(300f, point, _nextPoint, ChangePoint);
-            }
-
-            ball.Initialize(point);
+            var startPosition = _startPoints[index];
+            ball.Initialize(startPosition);
+            return BallData.CreateInstance(saveKey, ball.gameObject, startPosition);
         }
+    }
 
-        private void ChangePoint(Vector2 point)
+    public class BallData
+    {
+        private string _saveKey;
+        private GameObject _gameObject;
+        private Vector2 _startPosition;
+
+        private BallData(string saveKey, GameObject gameObject, Vector2 startPosition)
         {
-            _nextPoint = GetRandomScreenPoint;
+            _saveKey = saveKey;
+            _gameObject = gameObject;
+            _startPosition = startPosition;
         }
 
-        private Vector2 GetRandomScreenPoint => _randomService.GetRandomScreenPoint(150);
+        public static BallData CreateInstance(string saveKey, GameObject gameObject, Vector2 startPosition)
+        {
+            return new(saveKey, gameObject, startPosition);
+        }
     }
 }

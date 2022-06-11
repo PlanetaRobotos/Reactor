@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using _Project.Scripts.Architecture.Services.UIStuff;
 using _Project.Scripts.Settings;
+using submodules.CommonScripts.CommonScripts.Architecture.Services.UIStuff;
 using UnityEngine;
 
 namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
