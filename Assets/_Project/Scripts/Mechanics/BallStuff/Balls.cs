@@ -42,8 +42,7 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
             }
 
             Debug.Log($"dist {DistanceTools.GetDistance(_startPoints[0], _startPoints[1])}");
-            Debug.Log(
-                $"is above {DistanceTools.IsAbove(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _startPoints[0], _startPoints[1])}");
+            Debug.Log($"is above {DistanceTools.IsAbove(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _startPoints[0], _startPoints[1])}");
         }
 
 

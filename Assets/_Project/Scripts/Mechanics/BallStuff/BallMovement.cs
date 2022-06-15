@@ -23,7 +23,7 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
             _rb = GetComponent<Rigidbody2D>();
 
             transform.position = startPoint;
-            // DOVirtual.DelayedCall(0.1f, AddRandomForce);
+            DOVirtual.DelayedCall(0.1f, AddRandomForce);
         }
 
         private void AddRandomForce()
