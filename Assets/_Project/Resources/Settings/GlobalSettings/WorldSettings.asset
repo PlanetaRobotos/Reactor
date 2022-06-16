@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: WorldSettings
   m_EditorClassIdentifier: 
   _ballsAmount: 2
-  _minStartDistanceBetweenBalls: 200
+  _minStartDistanceBetweenBalls: 110

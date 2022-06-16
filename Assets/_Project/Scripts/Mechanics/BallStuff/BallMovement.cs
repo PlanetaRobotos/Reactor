@@ -1,11 +1,9 @@
-using System;
 using DG.Tweening;
 using submodules.CommonScripts.CommonScripts.Architecture.Services;
 using submodules.CommonScripts.CommonScripts.Utilities;
 using UnityEngine;
-using Zenject;
 
-namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
+namespace _Project.Scripts.Mechanics.BallStuff
 {
     public class BallMovement : MonoBehaviour
     {

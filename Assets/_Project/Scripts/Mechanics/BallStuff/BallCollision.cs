@@ -1,8 +1,8 @@
 using submodules.CommonScripts.CommonScripts.BehaviourStuff.Collision._2D;
-using submodules.CommonScripts.CommonScripts.Utilities.Constants;
+using submodules.CommonScripts.CommonScripts.Constants;
 using UnityEngine;
 
-namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
+namespace _Project.Scripts.Mechanics.BallStuff
 {
     public class BallCollision : MonoBehaviour, ICollissible2D
     {

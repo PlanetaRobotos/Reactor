@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using _Project.Scripts.Settings;
-using submodules.CommonScripts.CommonScripts.Architecture.Services;
 using submodules.CommonScripts.CommonScripts.Architecture.Services.DataStuff;
 using submodules.CommonScripts.CommonScripts.Architecture.Services.UIStuff;
 using submodules.CommonScripts.CommonScripts.Utilities.Tools;
 using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
+namespace _Project.Scripts.Mechanics.BallStuff
 {
     public class Balls : MonoBehaviour
     {
@@ -18,6 +16,7 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
         private readonly List<BallData> _balls = new();
         private int _ballsAmount;
         private Vector2[] _startPoints;
+        private GameFieldCollision _gameFieldCollision;
 
         [Inject]
         private void Construct(IUIService uiService, IDataService dataService, IBallFactory ballFactory)
@@ -27,11 +26,16 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
             _dataService = dataService;
         }
 
+        public void Construct(GameFieldCollision gameFieldCollision)
+        {
+            _gameFieldCollision = gameFieldCollision;
+        }
+
         public void Initialize()
         {
             _ballsAmount = _dataService.WorldSettings.BallsAmount;
 
-            _startPoints =  DistanceTools.GetPoints(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _ballsAmount);
+            _startPoints =  DistanceTools.GetPoints(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _ballsAmount, _gameFieldCollision.Collider);
 
             for (int i = 0; i < _ballsAmount; i++)
             {
@@ -41,8 +45,8 @@ namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
                 _balls.Add(ballData);
             }
 
-            Debug.Log($"dist {DistanceTools.GetDistance(_startPoints[0], _startPoints[1])}");
-            Debug.Log($"is above {DistanceTools.IsAbove(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _startPoints[0], _startPoints[1])}");
+            // Debug.Log($"dist {DistanceTools.GetDistance(_startPoints[0], _startPoints[1])}");
+            // Debug.Log($"is above {DistanceTools.IsAbove(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _startPoints[0], _startPoints[1])}");
         }
 
 

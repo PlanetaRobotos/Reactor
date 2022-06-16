@@ -1,16 +1,11 @@
-using NaughtyAttributes;
+using System;
 using submodules.CommonScripts.CommonScripts.Utilities.Tools;
 using UnityEngine;
 
-namespace _Project.Scripts.CommonStuff.Mechanics
+namespace _Project.Scripts.Mechanics
 {
     public class Wall : MonoBehaviour
     {
-        [SerializeField] private SideType _sideType;
-        
-        [SerializeField] private bool _useOffset;
-        [SerializeField, ShowIf("_useOffset")] private Vector2 _offset;
-
         private Transform _cachedTransform;
         private ScreenTools.ScreenValues _screenValues;
         private float _depth, _zScale, _halfZScale;
@@ -25,15 +20,13 @@ namespace _Project.Scripts.CommonStuff.Mechanics
 
             _cachedTransform = transform;
             _screenValues = ScreenTools.GetScreenValuesAspect();
-
-            Place();
         }
 
-        private void Place()
+        public void Place(WallProperties wallProperties)
         {
-            _cachedTransform.position = _center + (Vector3)_offset;
+            _cachedTransform.position = _center + (Vector3)wallProperties.Offset;
             
-            switch (_sideType)
+            switch (wallProperties.SideType)
             {
                 case SideType.Top:
                     _cachedTransform.position +=
@@ -59,7 +52,14 @@ namespace _Project.Scripts.CommonStuff.Mechanics
         }
     }
 
-    internal enum SideType
+    [Serializable]
+    public class WallProperties
+    {
+        public SideType SideType;
+        public Vector2 Offset;
+    }    
+
+    public enum SideType
     {
         Top,
         Left,

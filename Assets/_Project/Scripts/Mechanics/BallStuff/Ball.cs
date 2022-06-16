@@ -4,7 +4,7 @@ using _Project.Scripts.Settings;
 using submodules.CommonScripts.CommonScripts.Architecture.Services.UIStuff;
 using UnityEngine;
 
-namespace _Project.Scripts.CommonStuff.Mechanics.BallStuff
+namespace _Project.Scripts.Mechanics.BallStuff
 {
     public interface ISavable
     {
