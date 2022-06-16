@@ -13,11 +13,11 @@ public class GameFiledFactory
     private readonly IAssetService _assetService;
 
     private Dictionary<string, GameField> _resources;
-    private readonly IInstantiate _instantiateProvider;
+    private readonly IInstantiator instantiatorProvider;
 
-    public GameFiledFactory(IAssetService assetService, IInstantiate instantiateProvider)
+    public GameFiledFactory(IAssetService assetService, IInstantiator instantiatorProvider)
     {
-        _instantiateProvider = instantiateProvider;
+        this.instantiatorProvider = instantiatorProvider;
         _assetService = assetService;
 
         Load();
@@ -27,13 +27,13 @@ public class GameFiledFactory
     {
         _resources = new Dictionary<string, GameField>
         {
-            [GameFieldType.BoxSimple.ToString()] = _instantiateProvider.Load<GameField>(
+            [GameFieldType.BoxSimple.ToString()] = instantiatorProvider.Load<GameField>(
                 $"{AssetPath.GameFieldsPath}/{GameFieldBoxSimple}"),
         };
     }
 
     public GameField Create(string name) =>
-        _instantiateProvider.Instantiate(_resources[name]);
+        instantiatorProvider.Instantiate(_resources[name]);
 }
 
 internal enum GameFieldType
