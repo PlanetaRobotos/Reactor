@@ -1,17 +1,12 @@
+using System;
 using UnityEngine;
 
 namespace _Project.Scripts.Mechanics
 {
     public class GameFieldCollision : MonoBehaviour
     {
-        [SerializeField] private Collider _collider;
-        
-        // public bool IsInside(Vector3 point)
-        // {
-        //     Vector3 closest = _collider.ClosestPoint(point);
-        //     return closest == point;
-        // }
+        [SerializeField] private Collider2D _collider;
 
-        public Collider Collider => _collider;
+        public Collider2D Collider => _collider;
     }
 }

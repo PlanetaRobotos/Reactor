@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Project.Scripts.FactoriesStuff;
 using submodules.CommonScripts.CommonScripts.Architecture.Services.DataStuff;
 using submodules.CommonScripts.CommonScripts.Architecture.Services.UIStuff;
 using submodules.CommonScripts.CommonScripts.Utilities.Tools;
@@ -33,6 +34,7 @@ namespace _Project.Scripts.Mechanics.BallStuff
 
         public void Initialize()
         {
+            _ballFactory.Init();
             _ballsAmount = _dataService.WorldSettings.BallsAmount;
 
             _startPoints =  DistanceTools.GetPoints(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _ballsAmount, _gameFieldCollision.Collider);
@@ -44,15 +46,12 @@ namespace _Project.Scripts.Mechanics.BallStuff
                 var ballData = AddBall(key, i);
                 _balls.Add(ballData);
             }
-
-            // Debug.Log($"dist {DistanceTools.GetDistance(_startPoints[0], _startPoints[1])}");
-            // Debug.Log($"is above {DistanceTools.IsAbove(_dataService.WorldSettings.MINStartDistanceBetweenBalls, _startPoints[0], _startPoints[1])}");
         }
 
 
         private BallData AddBall(string saveKey, int index)
         {
-            var ball = _ballFactory.Create(BallType.Simple.ToString()).GetComponent<Ball>();
+            var ball = _ballFactory.Create(BallType.BallSimple.ToString()).GetComponent<Ball>();
             ball.Construct(_uiService);
             ball.SetKey(saveKey);
             ball.gameObject.SetActive(true);

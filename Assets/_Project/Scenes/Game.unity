@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _clickableLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2147483647
 --- !u!1 &223976198
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 223976200}
   - component: {fileID: 223976199}
   m_Layer: 0
-  m_Name: Points
+  m_Name: Washers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameCanvas: {fileID: 234912942}
   _gameFieldBehaviour: {fileID: 2043868464}
-  _points: {fileID: 223976199}
+  _washers: {fileID: 223976199}
   _balls: {fileID: 1605291391}
 --- !u!1 &1063441542
 GameObject:

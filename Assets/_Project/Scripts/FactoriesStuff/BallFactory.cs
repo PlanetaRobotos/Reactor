@@ -3,58 +3,33 @@ using submodules.CommonScripts.CommonScripts.Architecture.Services.AssetsStuff;
 using submodules.CommonScripts.CommonScripts.Architecture.Services.Pool;
 using UnityEngine;
 
-public interface IBallFactory
+namespace _Project.Scripts.FactoriesStuff
 {
-    void Load();
-    void WarmPool();
-    GameObject Create(string name);
-    void Release(GameObject obj, string name);
-}
-
-public class BallFactory : IBallFactory
-{
-    private const string BallSimple = "Balls/BallSimple";
-    
-    private const string ContainerName = "ResourcesPool";
-
-    private readonly IAssetService _assetService;
-    private readonly IPoolService _poolService;
-
-    private Dictionary<string, GameObject> _resources;
-
-    private const int Amount = 2;
-
-    public BallFactory(IAssetService assetService, IPoolService poolService)
+    public interface IBallFactory : IPoolFactory
     {
-        _assetService = assetService;
-        _poolService = poolService;
-
-        Load();
-        WarmPool();
     }
 
-    public void Load()
+    public class BallFactory : PoolFactory, IBallFactory
     {
-        _resources = new Dictionary<string, GameObject>
+        protected override int Amount => 2;
+        protected override string ContainerName => "Balls";
+        protected override string BasePath => "Balls";
+
+        public override void Load()
         {
-            [BallType.Simple.ToString()] = _assetService.GetObjectByName(BallSimple),
-        };
+            _resources = new Dictionary<string, GameObject>
+            {
+                [BallType.BallSimple.ToString()] = AddResource("BallSimple"),
+            };
+        }
+
+        public BallFactory(IAssetService assetService, IPoolService poolService) : base(assetService, poolService)
+        {
+        }
     }
 
-    public void WarmPool()
+    public enum BallType
     {
-        foreach (var name in _resources.Keys)
-            _poolService.FillPool(PoolInfo.Create(name, Amount, _resources[name], ContainerName));
+        BallSimple,
     }
-
-    public GameObject Create(string name) =>
-        _poolService.GetPoolObject(name);
-
-    public void Release(GameObject obj, string name) =>
-        _poolService.ReturnToPool(obj, name);
-}
-
-public enum BallType
-{
-    Simple,
 }
