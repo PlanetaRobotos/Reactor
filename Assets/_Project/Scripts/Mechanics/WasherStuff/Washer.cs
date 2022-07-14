@@ -39,7 +39,6 @@ namespace _Project.Scripts.Mechanics.WasherStuff
             if (obj.layer != LayerMask.NameToLayer(Layers.Washer) || obj.TryGetComponent(out Washer washer) && washer.ID != _id)
                 return;
             
-            Debug.Log(gameObject.name);
             _washers.Release(this);
         }
     }
