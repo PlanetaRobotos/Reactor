@@ -13,9 +13,9 @@ public class GameFiledFactory
     private readonly IAssetService _assetService;
 
     private Dictionary<string, GameField> _resources;
-    private readonly IInstantiator instantiatorProvider;
+    private readonly IInstantiateProvider instantiatorProvider;
 
-    public GameFiledFactory(IAssetService assetService, IInstantiator instantiatorProvider)
+    public GameFiledFactory(IAssetService assetService, IInstantiateProvider instantiatorProvider)
     {
         this.instantiatorProvider = instantiatorProvider;
         _assetService = assetService;

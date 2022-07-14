@@ -1,7 +1,6 @@
 using submodules.CommonScripts.CommonScripts.Architecture.Services.InstantiateStuff;
 using UnityEngine;
 using Zenject;
-using IInstantiator = submodules.CommonScripts.CommonScripts.Architecture.Services.InstantiateStuff.IInstantiator;
 
 namespace _Project.Scripts.Mechanics
 {
@@ -12,10 +11,10 @@ namespace _Project.Scripts.Mechanics
         [SerializeField] private float _depth;
         [SerializeField] private float _zScale;
         [SerializeField] private Vector3 _center;
-        private IInstantiator instantiatorProvider;
+        private IInstantiateProvider instantiatorProvider;
 
         [Inject]
-        private void Construct(IInstantiator instantiatorProvider)
+        private void Construct(IInstantiateProvider instantiatorProvider)
         {
             this.instantiatorProvider = instantiatorProvider;
         }
