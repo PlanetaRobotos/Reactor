@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ballsAmount: 2
   _minStartDistanceBetweenBalls: 200
+  _maxWashersAmount: 5
